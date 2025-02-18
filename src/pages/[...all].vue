@@ -1,23 +1,21 @@
 <script setup lang="ts">
-useHead({
-  title: 'Oops!',
-})
+const route = useRoute();
 </script>
 
 <template>
   <div
-    class="h-screen flex flex-col items-center justify-center overflow-hidden"
+    class="h-screen flex flex-col gap-2 items-center justify-center"
   >
-    <span class="text-red">
-      error page
+    <span class="text-lg font-bold">
+      404 - Page not found
     </span>
 
-    <RouterLink to="/" class="underline">
-      go home
+    <span class="text-neutral-400">
+      Path <code>{{ route.path }}</code> not found
+    </span>
+
+    <RouterLink to="/" class="underline mt-8 text-lg">
+      Back to home page
     </RouterLink>
-
-    <span class="animate-hinge animate-delay-2000 animate-forwards text-red">
-      something went wrong
-    </span>
   </div>
 </template>

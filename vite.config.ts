@@ -1,28 +1,38 @@
-import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
-import UnoCSS from 'unocss/vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import Pages from 'vite-plugin-pages'
+/// <reference types="vitest" />
+import tailwindcss from '@tailwindcss/vite';
+import { unheadVueComposablesImports } from '@unhead/vue';
+import vue from '@vitejs/plugin-vue';
+import autoimport from 'unplugin-auto-import/vite';
+import components from 'unplugin-vue-components/vite';
+import { defineConfig } from 'vite';
+import pages from 'vite-plugin-pages';
 
 // https://vitejs.dev/config/
 export default defineConfig({
 
   plugins: [
-    Vue(),
-
-    UnoCSS(),
-
-    Pages(),
-
-    AutoImport({
+    vue(),
+    tailwindcss(),
+    pages(),
+    autoimport({
       imports: [
         'vue',
         'vue-router',
-        '@vueuse/head',
         '@vueuse/core',
+        unheadVueComposablesImports,
       ],
       dts: 'src/auto-imports.d.ts',
       vueTemplate: true,
     }),
+    components(),
   ],
-})
+  test: {
+    browser: {
+      provider: 'playwright',
+      enabled: true,
+      instances: [{
+        browser: 'chromium',
+      }],
+    },
+  },
+});
