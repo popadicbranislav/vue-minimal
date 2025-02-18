@@ -1,20 +1,15 @@
-import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
-import { createHead } from '@vueuse/head'
-import App from './App.vue'
-import routes from '~pages'
+import { createApp } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import routes from '~pages';
+import App from './App.vue';
+import './assets/main.css';
 
-import '@unocss/reset/tailwind.css'
-import './style.css'
-import 'uno.css'
+const app = createApp(App);
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-})
+});
+app.use(router);
 
-const app = createApp(App)
-const head = createHead()
-app.use(head)
-app.use(router)
-app.mount('#app')
+app.mount('#app');
